@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🗓️ عدّاد الأيام بين تاريخين</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🗓️ عدّاد الأيام بين تاريخين</h1>
+    <p>احسب عدد الأيام بين تاريخين بسهولة</p>
+  </header>
+
+  <div class="container">
+    <label>📅 التاريخ الأول:</label>
+    <input type="date" id="startDate" />
+
+    <label>📅 التاريخ الثاني:</label>
+    <input type="date" id="endDate" />
+
+    <button onclick="calculateDays()">✅ احسب الفرق</button>
+
+    <div id="result"></div>
+  </div>
+
+  <footer style="text-align: center; margin-top: 40px;">
+    <p><a href="general-tools.html">← الرجوع إلى الأدوات العامة</a></p>
+  </footer>
+
+  <script>
+    function calculateDays() {
+      const start = new Date(document.getElementById("startDate").value);
+      const end = new Date(document.getElementById("endDate").value);
+      const result = document.getElementById("result");
+
+      if (!start || !end || isNaN(start) || isNaN(end)) {
+        result.textContent = "❌ يرجى إدخال تاريخين صالحين.";
+        return;
+      }
+
+      const diffTime = Math.abs(end - start);
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+      result.textContent = `📅 الفرق: ${diffDays} يوم`;
+    }
+  </script>
+
+</body>
+</html>
