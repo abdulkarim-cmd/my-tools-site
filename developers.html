@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💻 أدوات المبرمجين</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>💻 أدوات المبرمجين</h1>
+    <p>أدوات بسيطة تساعدك في تطوير البرامج وفحص الأكواد</p>
+  </header>
+
+  <main class="sections">
+  <div class="card" onclick="goTo('json-formatter.html')">
+    🧾 منسق JSON
+  </div>
+
+  <div class="card" onclick="goTo('base64-converter.html')">
+    🔁 محول Base64
+  </div>
+
+  <div class="card" onclick="goTo('link-checker.html')">
+  🔍 فحص حالة رابط
+</div>
+
+
+    <!-- يمكنك إضافة أدوات لاحقًا هنا -->
+  </main>
+
+  <footer style="text-align: center; margin-top: 40px;">
+    <p><a href="index.html">← الرجوع إلى الصفحة الرئيسية</a></p>
+    <p>جميع الحقوق محفوظة © 2025</p>
+  </footer>
+
+  <script>
+    function goTo(page) {
+      window.location.href = page;
+    }
+  </script>
+
+</body>
+</html>

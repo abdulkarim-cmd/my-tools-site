@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>حاسبة المعدل التراكمي</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+
+    table td {
+      padding: 8px;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📊 حاسبة المعدل التراكمي</h1>
+    <p>أدخل الدرجات وعدد الساعات لكل مادة لتحصل على معدلك</p>
+  </header>
+
+  <div class="container">
+    <table id="gradesTable">
+      <tr>
+        <td><input type="text" placeholder="اسم المادة" /></td>
+        <td><input type="number" placeholder="الدرجة أو النقاط" class="grade" /></td>
+        <td><input type="number" placeholder="عدد الساعات" class="hours" /></td>
+      </tr>
+    </table>
+
+    <button onclick="addRow()">➕ أضف مادة أخرى</button>
+    <button onclick="calculateGPA()">✅ احسب المعدل</button>
+
+    <div id="result"></div>
+  </div>
+
+  <footer style="text-align: center; margin-top: 50px;">
+    <p><a href="students.html">← الرجوع إلى أدوات الطلاب</a></p>
+  </footer>
+
+  <script>
+    function addRow() {
+      const table = document.getElementById('gradesTable');
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><input type="text" placeholder="اسم المادة" /></td>
+        <td><input type="number" placeholder="الدرجة أو النقاط" class="grade" /></td>
+        <td><input type="number" placeholder="عدد الساعات" class="hours" /></td>
+      `;
+      table.appendChild(row);
+    }
+
+    function calculateGPA() {
+      const grades = document.querySelectorAll('.grade');
+      const hours = document.querySelectorAll('.hours');
+
+      let totalPoints = 0;
+      let totalHours = 0;
+
+      for (let i = 0; i < grades.length; i++) {
+        const grade = parseFloat(grades[i].value);
+        const hour = parseFloat(hours[i].value);
+
+        if (!isNaN(grade) && !isNaN(hour)) {
+          totalPoints += grade * hour;
+          totalHours += hour;
+        }
+      }
+
+      const gpa = totalHours ? (totalPoints / totalHours).toFixed(2) : 0;
+      document.getElementById('result').innerText = `المعدل التراكمي: ${gpa}`;
+    }
+  </script>
+
+</body>
+</html>

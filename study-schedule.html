@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>📅 جدول دراسي أسبوعي</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      text-align: center;
+      padding: 10px;
+    }
+
+    td textarea {
+      width: 100%;
+      height: 60px;
+      resize: none;
+      border: none;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📅 أداة تنظيم الجدول الدراسي</h1>
+    <p>اكتب جدولك واحفظه في المتصفح!</p>
+  </header>
+
+  <div class="container">
+    <table id="schedule">
+      <thead>
+        <tr>
+          <th>الوقت</th>
+          <th>الأحد</th>
+          <th>الإثنين</th>
+          <th>الثلاثاء</th>
+          <th>الأربعاء</th>
+          <th>الخميس</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- سنضيف الصفوف عبر JavaScript -->
+      </tbody>
+    </table>
+
+    <button onclick="clearSchedule()">🧹 مسح الجدول</button>
+  </div>
+
+  <footer style="text-align: center; margin-top: 50px;">
+    <p><a href="students.html">← الرجوع إلى أدوات الطلاب</a></p>
+  </footer>
+
+  <script>
+    const times = [
+      '8:00 - 9:00',
+      '9:00 - 10:00',
+      '10:00 - 11:00',
+      '11:00 - 12:00',
+      '12:00 - 1:00',
+      '1:00 - 2:00',
+      '2:00 - 3:00',
+      '3:00 - 4:00'
+    ];
+
+    const days = ['sun', 'mon', 'tue', 'wed', 'thu'];
+
+    function createTable() {
+      const tbody = document.querySelector('#schedule tbody');
+      times.forEach((time, rowIndex) => {
+        const row = document.createElement('tr');
+        row.innerHTML = `<td><strong>${time}</strong></td>`;
+
+        days.forEach((day, colIndex) => {
+          const key = `${day}-${rowIndex}`;
+          const saved = localStorage.getItem(key) || '';
+          row.innerHTML += `
+            <td>
+              <textarea oninput="save('${key}', this.value)">${saved}</textarea>
+            </td>`;
+        });
+
+        tbody.appendChild(row);
+      });
+    }
+
+    function save(key, value) {
+      localStorage.setItem(key, value);
+    }
+
+    function clearSchedule() {
+      if (confirm('هل أنت متأكد أنك تريد مسح الجدول؟')) {
+        days.forEach(day => {
+          times.forEach((_, index) => {
+            localStorage.removeItem(`${day}-${index}`);
+          });
+        });
+        location.reload();
+      }
+    }
+
+    createTable();
+  </script>
+
+</body>
+</html>

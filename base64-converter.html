@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔁 محول Base64</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 14px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      resize: vertical;
+    }
+
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    pre {
+      background-color: #f0f0f0;
+      padding: 15px;
+      border-radius: 6px;
+      margin-top: 15px;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🔁 محول Base64</h1>
+    <p>أدخل النص الذي تريد ترميزه أو فكه باستخدام ترميز Base64</p>
+  </header>
+
+  <div class="container">
+    <textarea id="inputText" placeholder="اكتب النص هنا..."></textarea>
+    <br />
+    <button onclick="encodeBase64()">🔐 ترميز إلى Base64</button>
+    <button onclick="decodeBase64()">🔓 فك ترميز Base64</button>
+
+    <pre id="result"></pre>
+  </div>
+
+  <footer style="text-align: center; margin-top: 40px;">
+    <p><a href="developers.html">← الرجوع إلى أدوات المبرمجين</a></p>
+  </footer>
+
+  <script>
+    function encodeBase64() {
+      const text = document.getElementById('inputText').value;
+      try {
+        const encoded = btoa(unescape(encodeURIComponent(text)));
+        document.getElementById('result').textContent = encoded;
+      } catch (e) {
+        document.getElementById('result').textContent = '⚠️ لا يمكن ترميز هذا النص.';
+      }
+    }
+
+    function decodeBase64() {
+      const text = document.getElementById('inputText').value;
+      try {
+        const decoded = decodeURIComponent(escape(atob(text)));
+        document.getElementById('result').textContent = decoded;
+      } catch (e) {
+        document.getElementById('result').textContent = '⚠️ هذا النص ليس Base64 صالحًا.';
+      }
+    }
+  </script>
+
+</body>
+</html>

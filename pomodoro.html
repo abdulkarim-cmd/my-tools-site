@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⏱️ مؤقت بومودورو</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      text-align: center;
+    }
+
+    .timer-container {
+      margin: 50px auto;
+      max-width: 400px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .time {
+      font-size: 60px;
+      margin: 20px 0;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    button {
+      padding: 12px 20px;
+      margin: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .start {
+      background-color: #2ecc71;
+      color: white;
+    }
+
+    .reset {
+      background-color: #e74c3c;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>⏱️ مؤقت الدراسة (Pomodoro)</h1>
+    <p>نظم وقتك وركز باستخدام تقنية بومودورو</p>
+  </header>
+
+  <div class="timer-container">
+    <div class="time" id="display">25:00</div>
+    <button class="start" onclick="startTimer()">ابدأ</button>
+    <button class="reset" onclick="resetTimer()">إعادة ضبط</button>
+  </div>
+
+  <footer style="text-align: center; margin-top: 50px;">
+    <p><a href="students.html">← الرجوع إلى أدوات الطلاب</a></p>
+  </footer>
+
+  <script>
+    let minutes = 25;
+    let seconds = 0;
+    let timer;
+    let isRunning = false;
+
+    function updateDisplay() {
+      const m = minutes.toString().padStart(2, '0');
+      const s = seconds.toString().padStart(2, '0');
+      document.getElementById("display").innerText = `${m}:${s}`;
+    }
+
+    function startTimer() {
+      if (isRunning) return;
+      isRunning = true;
+
+      timer = setInterval(() => {
+        if (seconds === 0) {
+          if (minutes === 0) {
+            clearInterval(timer);
+            alert("👏 أحسنت! انتهت الجلسة، خذ استراحة.");
+            isRunning = false;
+            return;
+          }
+          minutes--;
+          seconds = 59;
+        } else {
+          seconds--;
+        }
+        updateDisplay();
+      }, 1000);
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      minutes = 25;
+      seconds = 0;
+      isRunning = false;
+      updateDisplay();
+    }
+
+    updateDisplay(); // عند التحميل
+  </script>
+
+</body>
+</html>

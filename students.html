@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أدوات الطلاب</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>🎓 أدوات الطلاب</h1>
+    <p>خدمات مخصصة لمساعدتك في الدراسة وتنظيم الوقت</p>
+  </header>
+
+  <main class="sections">
+    <div class="card" onclick="goTo('gpa-calculator.html')">
+      📊 حاسبة المعدل التراكمي
+    </div>
+
+    <div class="card" onclick="goTo('pomodoro.html')">
+      ⏱️ مؤقت الدراسة (Pomodoro)
+    </div>
+
+    <div class="card" onclick="goTo('study-schedule.html')">
+      📅 أداة تنظيم الجدول الدراسي
+    </div>
+  </main>
+
+  <footer>
+    <p><a href="index.html">← الرجوع إلى الصفحة الرئيسية</a></p>
+    <p>جميع الحقوق محفوظة © 2025</p>
+  </footer>
+
+  <script>
+    function goTo(page) {
+      window.location.href = page;
+    }
+  </script>
+
+</body>
+</html>
