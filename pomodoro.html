@@ -1,13 +1,27 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>⏱️ مؤقت بومودورو</title>
+
+  <!-- ✅ حماية المحتوى -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self';">
+
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
+      font-family: Arial, sans-serif;
       text-align: center;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #3498db;
+      color: white;
+      padding: 20px;
     }
 
     .timer-container {
@@ -20,19 +34,20 @@
     }
 
     .time {
-      font-size: 60px;
-      margin: 20px 0;
+      font-size: 64px;
+      margin: 30px 0;
       font-weight: bold;
       color: #2c3e50;
     }
 
     button {
-      padding: 12px 20px;
+      padding: 12px 24px;
       margin: 10px;
       font-size: 16px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     .start {
@@ -40,9 +55,32 @@
       color: white;
     }
 
+    .start:hover {
+      background-color: #27ae60;
+    }
+
     .reset {
       background-color: #e74c3c;
       color: white;
+    }
+
+    .reset:hover {
+      background-color: #c0392b;
+    }
+
+    footer {
+      margin-top: 50px;
+      color: #555;
+      padding: 20px;
+    }
+
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -50,17 +88,18 @@
 
   <header>
     <h1>⏱️ مؤقت الدراسة (Pomodoro)</h1>
-    <p>نظم وقتك وركز باستخدام تقنية بومودورو</p>
+    <p>نظّم وقتك وركز باستخدام تقنية بومودورو</p>
   </header>
 
   <div class="timer-container">
     <div class="time" id="display">25:00</div>
-    <button class="start" onclick="startTimer()">ابدأ</button>
-    <button class="reset" onclick="resetTimer()">إعادة ضبط</button>
+    <button class="start" onclick="startTimer()">▶️ ابدأ</button>
+    <button class="reset" onclick="resetTimer()">🔁 إعادة ضبط</button>
   </div>
 
-  <footer style="text-align: center; margin-top: 50px;">
+  <footer>
     <p><a href="students.html">← الرجوع إلى أدوات الطلاب</a></p>
+    <p>© جميع الحقوق محفوظة 2025</p>
   </footer>
 
   <script>
@@ -69,12 +108,14 @@
     let timer;
     let isRunning = false;
 
+    // ✅ تحديث واجهة الوقت
     function updateDisplay() {
       const m = minutes.toString().padStart(2, '0');
       const s = seconds.toString().padStart(2, '0');
       document.getElementById("display").innerText = `${m}:${s}`;
     }
 
+    // ✅ تشغيل المؤقت
     function startTimer() {
       if (isRunning) return;
       isRunning = true;
@@ -83,8 +124,8 @@
         if (seconds === 0) {
           if (minutes === 0) {
             clearInterval(timer);
-            alert("👏 أحسنت! انتهت الجلسة، خذ استراحة.");
             isRunning = false;
+            alert("👏 أحسنت! انتهت الجلسة، خذ استراحة قصيرة.");
             return;
           }
           minutes--;
@@ -96,6 +137,7 @@
       }, 1000);
     }
 
+    // ✅ إعادة ضبط المؤقت
     function resetTimer() {
       clearInterval(timer);
       minutes = 25;
@@ -104,7 +146,8 @@
       updateDisplay();
     }
 
-    updateDisplay(); // عند التحميل
+    // ✅ أول عرض عند تحميل الصفحة
+    updateDisplay();
   </script>
 
 </body>
