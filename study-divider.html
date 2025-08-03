@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📚 أداة تقسيم المناهج</title>
+  <style>
+    body {
+      font-family: 'Tahoma', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .result {
+      text-align: right;
+      margin-top: 20px;
+    }
+
+    .day {
+      background-color: #ecf0f1;
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📚 أداة تقسيم المناهج</h1>
+    <p>قسّم دروسك أو صفحاتك على عدد الأيام المتبقية حتى الاختبار!</p>
+
+    <input type="text" id="subject" placeholder="اسم المادة (مثلاً: رياضيات)">
+    <input type="number" id="totalUnits" placeholder="عدد الصفحات أو الدروس">
+    <input type="number" id="days" placeholder="عدد الأيام حتى الاختبار">
+    <button onclick="generatePlan()">✅ أنشئ الجدول</button>
+
+    <div id="plan" class="result"></div>
+  </div>
+
+  <script>
+    function generatePlan() {
+      const subject = document.getElementById("subject").value.trim();
+      const totalUnits = parseInt(document.getElementById("totalUnits").value);
+      const days = parseInt(document.getElementById("days").value);
+      const resultDiv = document.getElementById("plan");
+      resultDiv.innerHTML = "";
+
+      if (!subject || isNaN(totalUnits) || isNaN(days) || totalUnits <= 0 || days <= 0) {
+        resultDiv.innerHTML = '<p style="color:red">❗ الرجاء إدخال بيانات صحيحة</p>';
+        return;
+      }
+
+      const unitsPerDay = Math.floor(totalUnits / days);
+      let remainder = totalUnits % days;
+
+      for (let i = 1; i <= days; i++) {
+        let todayUnits = unitsPerDay + (remainder > 0 ? 1 : 0);
+        remainder--;
+        resultDiv.innerHTML += `<div class="day">📅 اليوم ${i}: ${todayUnits} من ${subject}</div>`;
+      }
+    }
+  </script>
+</body>
+</html>
