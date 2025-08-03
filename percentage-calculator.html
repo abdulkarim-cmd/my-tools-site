@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🧮 حاسبة النسبة المئوية</title>
+  <meta name="description" content="استخدم هذه الأداة البسيطة لحساب النسبة المئوية لأي رقم. مفيدة للطلاب وكل من يحتاج إلى حسابات النسب." />
+  <link rel="stylesheet" href="../style.css" />
+
+  <!-- نصائح SEO -->
+  <meta name="robots" content="index, follow" />
+  <meta property="og:title" content="حاسبة النسبة المئوية" />
+  <meta property="og:description" content="أداة لحساب النسبة المئوية لأي رقم بسهولة وسرعة." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ar_AR" />
+  <meta property="og:url" content="https://abdulkarim-cmd.github.io/my-tools-site/tools/percentage-calculator.html" />
+  <meta property="og:image" content="https://abdulkarim-cmd.github.io/my-tools-site/images/percentage-tool.png" />
+
+  <style>
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🧮 حاسبة النسبة المئوية</h1>
+    <p>احسب النسبة المئوية لأي رقم بسهولة</p>
+  </header>
+
+  <div class="container">
+    <input type="number" id="number" placeholder="أدخل الرقم الأصلي" />
+    <input type="number" id="percent" placeholder="أدخل النسبة المئوية (%)" />
+    <button onclick="calculatePercentage()">✅ احسب</button>
+
+    <div id="result"></div>
+  </div>
+
+  <footer style="text-align: center; margin-top: 50px;">
+    <p><a href="../students.html">← الرجوع إلى أدوات الطلاب</a></p>
+  </footer>
+
+  <script>
+    function calculatePercentage() {
+      const number = parseFloat(document.getElementById("number").value);
+      const percent = parseFloat(document.getElementById("percent").value);
+
+      if (isNaN(number) || isNaN(percent)) {
+        document.getElementById("result").innerText = "❌ الرجاء إدخال رقمين صحيحين.";
+        return;
+      }
+
+      const result = (number * percent) / 100;
+      document.getElementById("result").innerText = `${percent}% من ${number} هو ${result.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>
