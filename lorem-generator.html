@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📄 مولّد النصوص الوهمية (Lorem Ipsum)</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      direction: rtl;
+      background-color: #f9f9f9;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    select, input, button {
+      font-size: 16px;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    textarea {
+      width: 100%;
+      height: 300px;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-family: 'Courier New', monospace;
+      direction: ltr;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>📄 مولّد النصوص الوهمية (Lorem Ipsum)</h1>
+    <p>اختر عدد الفقرات أو الكلمات، واللغة المطلوبة، ثم اضغط "توليد"</p>
+
+    <select id="mode">
+      <option value="paragraphs">عدد الفقرات</option>
+      <option value="words">عدد الكلمات</option>
+    </select>
+
+    <input type="number" id="count" value="3" min="1" />
+
+    <select id="language">
+      <option value="en">إنجليزية</option>
+      <option value="ar">عربية</option>
+    </select>
+
+    <button onclick="generateLorem()">توليد النص</button>
+
+    <textarea id="output" readonly></textarea>
+
+    <p style="margin-top: 20px;">
+      <a href="dev-tools.html">← الرجوع إلى أدوات المبرمجين</a>
+    </p>
+  </div>
+
+  <script>
+    const loremEn = "Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua";
+    const loremAr = "هذا نص عربي وهمي يستخدم لأغراض التصميم والاختبار في المواقع والتطبيقات بدون الحاجة إلى محتوى حقيقي";
+
+    function generateLorem() {
+      const mode = document.getElementById("mode").value;
+      const count = parseInt(document.getElementById("count").value);
+      const lang = document.getElementById("language").value;
+      const baseText = lang === "ar" ? loremAr : loremEn;
+      const words = baseText.split(" ");
+      let result = "";
+
+      if (mode === "words") {
+        for (let i = 0; i < count; i++) {
+          result += words[i % words.length] + " ";
+        }
+      } else {
+        for (let i = 0; i < count; i++) {
+          let paragraph = "";
+          for (let j = 0; j < 40; j++) {
+            paragraph += words[j % words.length] + " ";
+          }
+          result += paragraph.trim() + "\n\n";
+        }
+      }
+
+      document.getElementById("output").value = result.trim();
+    }
+  </script>
+
+</body>
+</html>
