@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🔁 محوّل الوحدات</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      direction: rtl;
+      font-family: sans-serif;
+      background-color: #f7f7f7;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      background-color: #fff;
+      max-width: 500px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🔁 محوّل الوحدات</h1>
+    <p>اختر نوع التحويل وأدخل القيمة</p>
+  </header>
+
+  <div class="container">
+    <select id="type" onchange="updateUnits()">
+      <option value="length">الطول</option>
+      <option value="weight">الوزن</option>
+      <option value="temperature">الحرارة</option>
+    </select>
+
+    <input type="number" id="inputValue" placeholder="القيمة" />
+
+    <select id="fromUnit"></select>
+    <select id="toUnit"></select>
+
+    <button onclick="convert()">🔄 تحويل</button>
+    <div id="result"></div>
+  </div>
+
+  <footer style="margin-top: 40px;">
+    <a href="tools.html">← الرجوع إلى أدوات عامة</a>
+  </footer>
+
+  <script>
+    const units = {
+      length: ["متر", "كيلومتر", "سنتيمتر", "بوصة"],
+      weight: ["كغ", "غرام", "رطل (باوند)"],
+      temperature: ["سليسيوس", "فهرنهايت", "كلفن"]
+    };
+
+    function updateUnits() {
+      const type = document.getElementById("type").value;
+      const fromSelect = document.getElementById("fromUnit");
+      const toSelect = document.getElementById("toUnit");
+
+      fromSelect.innerHTML = "";
+      toSelect.innerHTML = "";
+
+      units[type].forEach(unit => {
+        const option1 = document.createElement("option");
+        option1.text = unit;
+        const option2 = document.createElement("option");
+        option2.text = unit;
+
+        fromSelect.add(option1);
+        toSelect.add(option2);
+      });
+    }
+
+    function convert() {
+      const type = document.getElementById("type").value;
+      const value = parseFloat(document.getElementById("inputValue").value);
+      const from = document.getElementById("fromUnit").value;
+      const to = document.getElementById("toUnit").value;
+      let result = 0;
+
+      if (isNaN(value)) {
+        document.getElementById("result").innerText = "أدخل قيمة صحيحة.";
+        return;
+      }
+
+      if (type === "length") {
+        const factors = {
+          "متر": 1,
+          "كيلومتر": 1000,
+          "سنتيمتر": 0.01,
+          "بوصة": 0.0254
+        };
+        result = value * (factors[from] / factors[to]);
+      } else if (type === "weight") {
+        const factors = {
+          "كغ": 1,
+          "غرام": 0.001,
+          "رطل (باوند)": 0.453592
+        };
+        result = value * (factors[from] / factors[to]);
+      } else if (type === "temperature") {
+        if (from === to) {
+          result = value;
+        } else if (from === "سليسيوس") {
+          if (to === "فهرنهايت") result = value * 9/5 + 32;
+          else if (to === "كلفن") result = value + 273.15;
+        } else if (from === "فهرنهايت") {
+          if (to === "سليسيوس") result = (value - 32) * 5/9;
+          else if (to === "كلفن") result = (value - 32) * 5/9 + 273.15;
+        } else if (from === "كلفن") {
+          if (to === "سليسيوس") result = value - 273.15;
+          else if (to === "فهرنهايت") result = (value - 273.15) * 9/5 + 32;
+        }
+      }
+
+      document.getElementById("result").innerText = `النتيجة: ${result.toFixed(2)} ${to}`;
+    }
+
+    window.onload = updateUnits;
+  </script>
+
+</body>
+</html>
