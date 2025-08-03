@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abdulkarim-cmd.github.io/my-tools-site/sitemap.xml
