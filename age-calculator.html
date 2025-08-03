@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📅 حساب العمر</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      text-align: center;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    input[type="date"], button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 15px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📅 احسب عمرك</h1>
+    <p>أدخل تاريخ ميلادك لمعرفة عمرك بدقة</p>
+  </header>
+
+  <div class="container">
+    <input type="date" id="birthdate">
+    <button onclick="calculateAge()">✅ احسب العمر</button>
+    <div id="result"></div>
+  </div>
+
+  <footer style="margin-top: 50px;">
+    <p><a href="general-tools.html">← الرجوع إلى أدوات عامة</a></p>
+  </footer>
+
+  <script>
+    function calculateAge() {
+      const input = document.getElementById("birthdate").value;
+      if (!input) {
+        document.getElementById("result").innerText = "❗ الرجاء إدخال تاريخ الميلاد";
+        return;
+      }
+
+      const birthDate = new Date(input);
+      const today = new Date();
+
+      let years = today.getFullYear() - birthDate.getFullYear();
+      let months = today.getMonth() - birthDate.getMonth();
+      let days = today.getDate() - birthDate.getDate();
+
+      if (days < 0) {
+        months--;
+        days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+      }
+
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+
+      document.getElementById("result").innerText =
+        `📌 عمرك هو: ${years} سنة، ${months} شهر، و ${days} يوم`;
+    }
+  </script>
+
+</body>
+</html>
