@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>⚖️ حاسبة مؤشر كتلة الجسم (BMI)</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      direction: rtl;
+      font-family: sans-serif;
+      text-align: center;
+      background-color: #f7f7f7;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #fff;
+      max-width: 500px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>⚖️ حاسبة مؤشر كتلة الجسم (BMI)</h1>
+    <p>أدخل طولك ووزنك لحساب مؤشر كتلة الجسم</p>
+  </header>
+
+  <div class="container">
+    <input type="number" id="weight" placeholder="الوزن (كغ)" />
+    <input type="number" id="height" placeholder="الطول (سم)" />
+    <button onclick="calculateBMI()">احسب الآن</button>
+    <div id="result"></div>
+  </div>
+
+  <footer style="margin-top: 50px;">
+    <a href="tools.html">← الرجوع إلى أدوات عامة</a>
+  </footer>
+
+  <script>
+    function calculateBMI() {
+      const weight = parseFloat(document.getElementById("weight").value);
+      const heightCm = parseFloat(document.getElementById("height").value);
+      const heightM = heightCm / 100;
+
+      if (isNaN(weight) || isNaN(heightM) || heightM <= 0) {
+        document.getElementById("result").innerText = "يرجى إدخال قيم صحيحة للطول والوزن.";
+        return;
+      }
+
+      const bmi = (weight / (heightM * heightM)).toFixed(1);
+      let category = "";
+
+      if (bmi < 18.5) category = "نقص في الوزن";
+      else if (bmi < 25) category = "وزن طبيعي";
+      else if (bmi < 30) category = "زيادة في الوزن";
+      else category = "سمنة";
+
+      document.getElementById("result").innerText = `مؤشر كتلة الجسم (BMI): ${bmi} - ${category}`;
+    }
+  </script>
+
+</body>
+</html>
