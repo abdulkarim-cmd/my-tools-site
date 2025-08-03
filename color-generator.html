@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎨 مولّد أكواد الألوان</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 20px;
+      direction: rtl;
+    }
+
+    .container {
+      background: #fff;
+      max-width: 600px;
+      margin: auto;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .color-box {
+      width: 100px;
+      height: 100px;
+      margin: 20px auto;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .code-display {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    input[type="color"] {
+      width: 100px;
+      height: 50px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎨 مولّد أكواد الألوان</h1>
+    <p>اختر لونًا للحصول على كود HEX و RGB الخاص به.</p>
+
+    <input type="color" id="colorPicker" value="#ff9900" onchange="updateColor()" />
+    
+    <div class="color-box" id="colorBox" style="background-color: #ff9900;"></div>
+
+    <div class="code-display">
+      HEX: <span id="hexCode">#ff9900</span>  
+      <button onclick="copyToClipboard('hexCode')">📋 نسخ</button>
+    </div>
+
+    <div class="code-display">
+      RGB: <span id="rgbCode">rgb(255, 153, 0)</span>
+      <button onclick="copyToClipboard('rgbCode')">📋 نسخ</button>
+    </div>
+
+    <a href="dev-tools.html">← الرجوع إلى أدوات المبرمجين</a>
+  </div>
+
+  <script>
+    function updateColor() {
+      const color = document.getElementById("colorPicker").value;
+      document.getElementById("colorBox").style.backgroundColor = color;
+      document.getElementById("hexCode").textContent = color;
+
+      const r = parseInt(color.substr(1,2), 16);
+      const g = parseInt(color.substr(3,2), 16);
+      const b = parseInt(color.substr(5,2), 16);
+      const rgb = `rgb(${r}, ${g}, ${b})`;
+      document.getElementById("rgbCode").textContent = rgb;
+    }
+
+    function copyToClipboard(id) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("تم النسخ: " + text);
+      });
+    }
+  </script>
+
+</body>
+</html>
