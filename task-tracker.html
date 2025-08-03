@@ -67,7 +67,7 @@
 
   <header>
     <h1>📝 أداة متابعة المهام الدراسية</h1>
-    <p>أضف مهامك الدراسية وتتبع إنجازها بسهولة</p>
+    <p>أضف مهامك الدراسية وتتبعها بسهولة — تُحفظ تلقائيًا</p>
   </header>
 
   <div class="container">
@@ -82,42 +82,63 @@
   </footer>
 
   <script>
-    const taskInput = document.getElementById("taskInput");
-    const taskList = document.getElementById("taskList");
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    function saveTasks() {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function renderTasks() {
+      const list = document.getElementById("taskList");
+      list.innerHTML = "";
+      tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+
+        const span = document.createElement("span");
+        span.textContent = task.text;
+        if (task.done) span.classList.add("done");
+
+        const actions = document.createElement("div");
+        actions.className = "task-actions";
+
+        const doneBtn = document.createElement("button");
+        doneBtn.textContent = "✓ تم";
+        doneBtn.onclick = () => {
+          tasks[index].done = !tasks[index].done;
+          saveTasks();
+          renderTasks();
+        };
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "🗑️ حذف";
+        deleteBtn.onclick = () => {
+          tasks.splice(index, 1);
+          saveTasks();
+          renderTasks();
+        };
+
+        actions.appendChild(doneBtn);
+        actions.appendChild(deleteBtn);
+
+        li.appendChild(span);
+        li.appendChild(actions);
+        list.appendChild(li);
+      });
+    }
 
     function addTask() {
-      const taskText = taskInput.value.trim();
-      if (taskText === "") return;
+      const input = document.getElementById("taskInput");
+      const text = input.value.trim();
+      if (text === "") return;
 
-      const li = document.createElement("li");
-
-      const span = document.createElement("span");
-      span.textContent = taskText;
-
-      const actions = document.createElement("div");
-      actions.className = "task-actions";
-
-      const doneBtn = document.createElement("button");
-      doneBtn.textContent = "✓ تم";
-      doneBtn.onclick = () => {
-        span.classList.toggle("done");
-      };
-
-      const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "🗑️ حذف";
-      deleteBtn.onclick = () => {
-        li.remove();
-      };
-
-      actions.appendChild(doneBtn);
-      actions.appendChild(deleteBtn);
-
-      li.appendChild(span);
-      li.appendChild(actions);
-
-      taskList.appendChild(li);
-      taskInput.value = "";
+      tasks.push({ text, done: false });
+      input.value = "";
+      saveTasks();
+      renderTasks();
     }
+
+    // أول ما تفتح الصفحة
+    renderTasks();
   </script>
 
 </body>
