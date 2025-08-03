@@ -3,21 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>حاسبة المعدل التراكمي</title>
+  <title>📊 حاسبة المعدل التراكمي</title>
+
+  <!-- ربط ملف CSS خارجي إن وجد -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- تحسين الأسلوب داخل الصفحة مباشرة -->
   <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+    }
+
+    header {
+      background-color: #3498db;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      border-bottom: 4px solid #2980b9;
+    }
+
     .container {
       max-width: 600px;
       margin: 40px auto;
       background-color: white;
       padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
     }
 
     input, button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin-top: 10px;
       font-size: 16px;
       border-radius: 6px;
@@ -34,11 +54,39 @@
       padding: 8px;
     }
 
+    button {
+      cursor: pointer;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #27ae60;
+    }
+
     #result {
       margin-top: 20px;
       font-size: 18px;
-      color: green;
+      color: #27ae60;
       font-weight: bold;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      margin: 50px 0 20px;
+      color: #555;
+    }
+
+    footer a {
+      color: #2980b9;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -64,11 +112,13 @@
     <div id="result"></div>
   </div>
 
-  <footer style="text-align: center; margin-top: 50px;">
+  <footer>
     <p><a href="students.html">← الرجوع إلى أدوات الطلاب</a></p>
+    <p>© 2025 جميع الحقوق محفوظة</p>
   </footer>
 
   <script>
+    // وظيفة لإضافة صف جديد
     function addRow() {
       const table = document.getElementById('gradesTable');
       const row = document.createElement('tr');
@@ -80,6 +130,7 @@
       table.appendChild(row);
     }
 
+    // وظيفة لحساب المعدل التراكمي
     function calculateGPA() {
       const grades = document.querySelectorAll('.grade');
       const hours = document.querySelectorAll('.hours');
