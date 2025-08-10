@@ -1,4 +1,10 @@
 User-agent: *
-Allow: /
+Allow: /          # يسمح بزحف كل الموقع
 
+# ------ منع ملفات ومجلدات نظامية (اختياري) ------ #
+Disallow: /private/    # إذا كان لديك مجلد خاص
+Disallow: /tmp/        # مجلد مؤقت
+Disallow: /admin/      # لوحة تحكم (إذا وجدت)
+
+# ------ خريطة الموقع ------ #
 Sitemap: https://abdulkarim-cmd.github.io/my-tools-site/sitemap.xml
